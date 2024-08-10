@@ -9,12 +9,10 @@ import { addItem } from "./app/features/cartSlice";
 
 const ProductList = () => { 
     const dispatch = useDispatch();
-    const cart = useSelector((state) => state.cart.cart);
     const products = useSelector((state) => state.products.products);
     const productStatus = useSelector((state) => state.products.status);
     const error = useSelector((state) => state.products.error);
 
-    const [productsInCart, setProductsInCart] = useState([]);
 
 
 
@@ -29,7 +27,6 @@ const ProductList = () => {
     const addToCart = (product) => {
         const newProduct = { ...product, quantity: 1};
         console.log(product);
-        setProductsInCart([...productsInCart, newProduct]);
         dispatch(addItem(product));
     }
 

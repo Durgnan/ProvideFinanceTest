@@ -19,6 +19,8 @@ const Cart = ({ text='Browse the items in your cart and then click Checkout', mo
     const products = useSelector((state) => state.cart.cart);
     const [modalOpen, setModalOpen] = useState(false);
     const dispatch = useDispatch();
+    let totalPrice = 0;
+    let finalPrice = 0;
 
     const handleCheckout = () => {
         navigate('/checkout');
@@ -32,6 +34,11 @@ const Cart = ({ text='Browse the items in your cart and then click Checkout', mo
         // navigate('/');
         dispatch(clearCart());
     }
+
+    products.forEach(element => {
+        totalPrice += element.price * element.quantity;
+        finalPrice += element.price * element.quantity * (1 - element.discountPercentage / 100);
+    });
 
     return (
         <div>
@@ -47,7 +54,8 @@ const Cart = ({ text='Browse the items in your cart and then click Checkout', mo
                         )
                 }
             </List>
-            <div>Total Price: {products.reduce((n, {price}) => n + price, 0)}</div>
+            <div>Total Price: {totalPrice.toFixed(2)}</div>
+            <div>Final Price: {finalPrice.toFixed(2)}</div>
             {mode === 'browse' ? (
                 <Button style={{marginBottom: 10}} onClick={handleCheckout} variant={'contained'}>Checkout</Button>
             ) : (

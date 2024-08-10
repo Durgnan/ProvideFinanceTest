@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import api from '../api';
 
-export const fetchProducts = createAsyncThunk('history/fetchProducts', async () => {
+export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
     const response = await api.get(`/products?limit=20&skip=20`);
     return response.data.products;
 });

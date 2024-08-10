@@ -5,10 +5,12 @@ import Divider from '@mui/material/Divider';
 import Cart from "./Cart";
 import {fetchProducts } from "./app/features/productSlice";
 import { addItem } from "./app/features/cartSlice";
+import { useNavigate } from 'react-router-dom';
 
 
 const ProductList = () => { 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const products = useSelector((state) => state.products.products);
     const productStatus = useSelector((state) => state.products.status);
     const error = useSelector((state) => state.products.error);
@@ -25,9 +27,11 @@ const ProductList = () => {
 
 
     const addToCart = (product) => {
-        const newProduct = { ...product, quantity: 1};
-        console.log(product);
         dispatch(addItem(product));
+    }
+
+    const viewProductDetails = (id) => {
+        navigate(`/product/${id}`);
     }
 
     return (
@@ -57,6 +61,7 @@ const ProductList = () => {
                                 </CardContent>
                                 <CardActions>
                                     <Button size="small" onClick={() => addToCart(product)}>Add to Cart</Button>
+                                    <Button size="small" onClick={() => viewProductDetails(product.id)}>View Detail</Button>
                                 </CardActions>
                             </Card>
                         </Grid>

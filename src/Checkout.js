@@ -1,7 +1,8 @@
 import React from 'react';
 import Cart from "./Cart";
 
-function Checkout() {
+const Checkout = () => {
+    
     return (
         <Cart text="Click Confirm Order to place your order" mode="confirm"></Cart>
     )

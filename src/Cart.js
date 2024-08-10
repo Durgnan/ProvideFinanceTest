@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
     Button,
     List,
@@ -6,7 +8,15 @@ import {
     ListItemText,
 } from "@mui/material";
 
-function Cart({ products = [], text='Browse the items in your cart and then click Checkout', mode='browse' }) {
+
+const Cart = ({ text='Browse the items in your cart and then click Checkout', mode='browse' }) => {
+    const navigate = useNavigate();
+    const products = useSelector((state) => state.cart.cart);
+
+    const handleCheckout = () => {
+        navigate('/checkout');
+    }
+    
     return (
         <div>
             <h1>Shopping Cart</h1>
@@ -23,7 +33,7 @@ function Cart({ products = [], text='Browse the items in your cart and then clic
             </List>
             <div>Total Price: {products.reduce((n, {price}) => n + price, 0)}</div>
             {mode === 'browse' ? (
-                <Button style={{marginBottom: 10}} href={'/checkout'} variant={'contained'}>Checkout</Button>
+                <Button style={{marginBottom: 10}} onClick={handleCheckout} variant={'contained'}>Checkout</Button>
             ) : (
                 <Button style={{marginBottom: 10}} href={'/checkout'} variant={'contained'}>Confirm Order</Button>
             )}
